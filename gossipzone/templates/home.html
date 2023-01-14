@@ -1,3 +1,20 @@
-{% include 'navbar.html' %}
+{% extends 'main.html' %}
 
+{% block content %}
 <h1>Home Template</h1>
+
+<div>
+
+    <div>
+        {% for zone in zones %}
+        
+            <div>
+                <h5>{{zone.id}} -- {{zone.name}}</h5>
+                
+            </div>
+
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}
