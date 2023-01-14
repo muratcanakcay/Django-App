@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    path('login/', views.loginPage, name="login"),
     path('', views.home, name="home"),
     path('zone/<str:pk>/', views.zone, name="zone"),
     path('create-zone/', views.createZone, name="create-zone"),
