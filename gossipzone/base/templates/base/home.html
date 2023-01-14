@@ -9,7 +9,10 @@
         {% for zone in zones %}
         
             <div>
+                <span>@{{zone.host.username}}</span>
                 <h5>{{zone.id}} -- <a href="{% url 'zone' zone.id %}">{{zone.name}}</a></h5>
+                <small>{{zone.topic.name}}</small>
+                <hr>
                 
             </div>
 
