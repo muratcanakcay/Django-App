@@ -15,8 +15,10 @@ def home(request):
     
     # retrieve topics from db
     topics = Topic.objects.all() 
+
+    zone_count = zones.count()
     
-    context = {'zones':zones, 'topics':topics }
+    context = {'zones':zones, 'topics':topics, 'zone_count' : zone_count }
     
     return render(request, 'base/home.html', context)
 
