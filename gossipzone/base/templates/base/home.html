@@ -4,11 +4,13 @@
 <h1>Home Template</h1>
 
 <div>
+    <a href="{% url 'create-zone' %}">Create Gossip Zone</a>
 
     <div>
         {% for zone in zones %}
         
             <div>
+                <a href="{% url 'update-zone' zone.id %}">Edit</a>
                 <span>@{{zone.host.username}}</span>
                 <h5>{{zone.id}} -- <a href="{% url 'zone' zone.id %}">{{zone.name}}</a></h5>
                 <small>{{zone.topic.name}}</small>

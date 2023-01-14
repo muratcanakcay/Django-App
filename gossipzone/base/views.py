@@ -1,11 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Zone
-
-# zones = [
-#     {'id':1, 'name':'Nude photos of Britney Spears!'},
-#     {'id':2, 'name':'Tina from the bookstore'},
-#     {'id':3, 'name':'Chad has a child?'},
-# ]
+from .forms import ZoneForm
 
 def home(request):
     zones = Zone.objects.all() # retrieve zones from db
@@ -17,3 +12,22 @@ def zone(request, pk):
     context = {'zone': zone}
 
     return render(request, 'base/zone.html', context)
+
+def createZone(request):
+    form = ZoneForm()
+
+    if request.method == 'POST':
+        form = ZoneForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home') #return back to homepage
+
+    context = {'form': form}
+    return render(request, 'base/zone_form.html', context)
+
+def updateZone(request, pk):
+    zone = Zone.objects.get(id=pk)
+    form = ZoneForm(instance=zone)
+
+    context = {'form': form}
+    return render(request, 'base/zone_form.html', context)
