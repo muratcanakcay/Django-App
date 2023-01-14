@@ -8,7 +8,15 @@ zones = [
 
 def home(request):
     context = {'zones':zones}
-    return render(request, 'home.html', context)
+    return render(request, 'base/home.html', context)
 
-def zone(request):
-    return render(request, 'zone.html')
+def zone(request, pk):
+    zone = None
+    
+    for z in zones:
+        if z['id'] == int(pk):
+            zone = z
+    
+    context = {'zone': zone}
+
+    return render(request, 'base/zone.html', context)
