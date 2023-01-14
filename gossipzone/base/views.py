@@ -29,5 +29,20 @@ def updateZone(request, pk):
     zone = Zone.objects.get(id=pk)
     form = ZoneForm(instance=zone)
 
+    if request.method == 'POST':
+        form = ZoneForm(request.POST, instance=zone)
+        if form.is_valid():
+            form.save()
+            return redirect('home') #return back to homepage
+
     context = {'form': form}
     return render(request, 'base/zone_form.html', context)
+
+def deleteZone(request, pk):
+    zone = Zone.objects.get(id=pk)
+
+    if request.method == 'POST':
+        zone.delete()
+        return redirect('home') #return back to homepage
+
+    return render(request, 'base/delete_zone.html', {'obj': zone })

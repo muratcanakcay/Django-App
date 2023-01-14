@@ -6,4 +6,5 @@ urlpatterns = [
     path('zone/<str:pk>/', views.zone, name="zone"),
     path('create-zone/', views.createZone, name="create-zone"),
     path('update-zone/<str:pk>', views.updateZone, name="update-zone"),
+    path('delete-zone/<str:pk>', views.deleteZone, name="delete-zone"),
 ]
