@@ -1,26 +1,56 @@
 {% extends 'main.html' %}
 
 {% block content %}
-<h1>Home Template</h1>
 
-<div>
-    <a href="{% url 'create-zone' %}">Create Gossip Zone</a>
+<style>
+    .home-container{
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+    }
+</style>
+
+<div class="home-container">
 
     <div>
-        {% for zone in zones %}
-        
+
+        <h3>Browse Gossips</h3>
+        <hr>
+
+        <div>
+            <a href="{% url 'home' %}">All</a>
+        </div>
+
+        {% for topic in topics %}
             <div>
-                <a href="{% url 'update-zone' zone.id %}">Edit</a>
-                <a href="{% url 'delete-zone' zone.id %}">Delete</a>
-                <span>@{{zone.host.username}}</span>
-                <h5>{{zone.id}} -- <a href="{% url 'zone' zone.id %}">{{zone.name}}</a></h5>
-                <small>{{zone.topic.name}}</small>
-                <hr>
-                
+                <a href="{% url 'home' %}?q={{topic.name}}">{{topic.name}}</a>
             </div>
 
         {% endfor %}
+
+
+
     </div>
 
+    <div>
+        <div>
+            <a href="{% url 'create-zone' %}">Create Gossip Zone</a>
+
+            <div>
+                {% for zone in zones %}
+                
+                    <div>
+                        <a href="{% url 'update-zone' zone.id %}">Edit</a>
+                        <a href="{% url 'delete-zone' zone.id %}">Delete</a>
+                        <span>@{{zone.host.username}}</span>
+                        <h5>{{zone.id}} -- <a href="{% url 'zone' zone.id %}">{{zone.name}}</a></h5>
+                        <small>{{zone.topic.name}}</small>
+                        <hr>
+                        
+                    </div>
+
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

@@ -1,10 +1,23 @@
 from django.shortcuts import render, redirect
-from .models import Zone
+from django.db.models import Q
+from .models import Zone, Topic
 from .forms import ZoneForm
 
 def home(request):
-    zones = Zone.objects.all() # retrieve zones from db
-    context = {'zones':zones}
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+    
+    # retrieve zones from db
+    zones = Zone.objects.filter(
+        Q(topic__name__icontains=q) |
+        Q(name__icontains=q) | 
+        Q(description__icontains=q) 
+    ) 
+    
+    # retrieve topics from db
+    topics = Topic.objects.all() 
+    
+    context = {'zones':zones, 'topics':topics }
+    
     return render(request, 'base/home.html', context)
 
 def zone(request, pk):
