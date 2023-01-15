@@ -12,47 +12,13 @@
 <div class="home-container">
 
     <div>
-
-        <h3>Browse Gossips</h3>
-        <hr>
-
-        <div>
-            <a href="{% url 'home' %}">All</a>
-        </div>
-
-        {% for topic in topics %}
-            <div>
-                <a href="{% url 'home' %}?q={{topic.name}}">{{topic.name}}</a>
-            </div>
-
-        {% endfor %}
-
-
-
+        {% include 'base/gossips_component.html' %}
     </div>
 
-    <div>
-        <div>
-            <h5>{{zone_count}} zones available</h5>
-            <a href="{% url 'create-zone' %}">Create Gossip Zone</a>
-
-            <div>
-                {% for zone in zones %}
-                
-                    <div>
-                        {% if request.user == zone.host %}
-                        <a href="{% url 'update-zone' zone.id %}">Edit</a>
-                        <a href="{% url 'delete-zone' zone.id %}">Delete</a>
-                        {% endif %}                        
-                        <span>@{{zone.host.username}}</span>
-                        <h5>{{zone.id}} -- <a href="{% url 'zone' zone.id %}">{{zone.name}}</a></h5>
-                        <small>{{zone.topic.name}}</small>
-                        <hr>                        
-                    </div>
-
-                {% endfor %}
-            </div>
-        </div>
+    <div>     
+        <h5>{{zone_count}} zones available</h5>
+        <a href="{% url 'create-zone' %}">Create Gossip Zone</a>
+        {% include 'base/zones_component.html' %}
     </div>
 
     <div>
