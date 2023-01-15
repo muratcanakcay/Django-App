@@ -3,7 +3,7 @@
 
 {% for gossip in gossips %}
 <div>
-    <small>@{{gossip.user}} {{gossip.created|timesince}}</small>
+    <small><a href="{% url 'user-profile' gossip.user.id %}">@{{gossip.user}}</a> {{gossip.created|timesince}}</small>
     <small>replied to: "{{gossip.zone}}"</small>
 
     <p>{{gossip}}</p>            

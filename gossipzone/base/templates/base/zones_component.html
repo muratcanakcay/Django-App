@@ -4,8 +4,9 @@
         {% if request.user == zone.host %}
         <a href="{% url 'update-zone' zone.id %}">Edit</a>
         <a href="{% url 'delete-zone' zone.id %}">Delete</a>
-        {% endif %}                        
-        <span>@{{zone.host.username}}</span>
+        {% endif %}
+
+        <a href="{% url 'user-profile' zone.host.id %}">@{{zone.host.username}}</a>
         <h5>{{zone.id}} -- <a href="{% url 'zone' zone.id %}">{{zone.name}}</a></h5>
         <small>{{zone.topic.name}}</small>
         <hr>                        

@@ -96,6 +96,17 @@ def zone(request, pk):
 
     return render(request, 'base/zone.html', context)
 
+
+def userProfile(request, pk):
+    user = User.objects.get(id=pk)
+    zones = user.zone_set.all()
+    gossips = user.gossip_set.all()
+    topics = Topic.objects.all()
+
+    context = {'user': user, 'zones': zones, 'gossips': gossips, 'topics': topics}
+    return render(request, 'base/profile.html', context)
+
+
 # restricted to logged in users
 @login_required(login_url='login')
 def createZone(request):
