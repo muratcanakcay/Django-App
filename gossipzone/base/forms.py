@@ -5,4 +5,5 @@ class ZoneForm(ModelForm):
     class Meta:
         model = Zone
         fields = '__all__'
+        exclude = ['host', 'participants']
 

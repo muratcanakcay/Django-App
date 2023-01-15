@@ -115,7 +115,9 @@ def createZone(request):
     if request.method == 'POST':
         form = ZoneForm(request.POST)
         if form.is_valid():
-            form.save()
+            zone = form.save(commit=False)
+            zone.host = request.user
+            zone.save()
             return redirect('home') #return back to homepage
 
     context = {'form': form}
