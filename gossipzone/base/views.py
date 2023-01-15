@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse
-from .models import Zone, Topic
+from .models import Zone, Topic, Gossip
 from .forms import ZoneForm
 
 def loginPage(request):   
@@ -80,6 +80,14 @@ def home(request):
 def zone(request, pk):
     zone = Zone.objects.get(id=pk) # retrieve zone from db
     gossips = zone.gossip_set.all().order_by('-created')
+
+    if request.method == 'POST':
+        gossip = Gossip.objects.create(
+            user=request.user,
+            zone=zone,
+            body=request.POST.get('body')
+        )
+        return redirect('zone', pk=zone.id)
 
     context = {'zone': zone, 'gossips': gossips}
 
