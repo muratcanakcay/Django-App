@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse
 from .models import Zone, Topic, Gossip
-from .forms import ZoneForm
+from .forms import ZoneForm, UserForm
 
 def loginPage(request):   
     page ='login'
@@ -180,3 +180,19 @@ def deleteGossip(request, pk):
         return redirect('zone', pk=gossip.zone.id) #refresh page
 
     return render(request, 'base/delete.html', {'obj': gossip })
+
+# restricted to logged in users
+@login_required(login_url='login')
+def updateUser(request):
+    user = request.user
+    form = UserForm(instance=user)
+
+    if request.method == 'POST':
+        form = UserForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('user-profile', pk=user.id)
+
+
+    context ={'form': form}
+    return render(request, 'base/update_user.html', context)
