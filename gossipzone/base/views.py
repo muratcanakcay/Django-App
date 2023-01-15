@@ -70,16 +70,17 @@ def home(request):
     
     # retrieve topics from db
     topics = Topic.objects.all() 
+    gossips = Gossip.objects.filter(Q(zone__topic__name__icontains=q))
 
     zone_count = zones.count()
     
-    context = {'zones':zones, 'topics':topics, 'zone_count' : zone_count }
+    context = {'zones':zones, 'topics':topics, 'zone_count' : zone_count, 'gossips': gossips }
     
     return render(request, 'base/home.html', context)
 
 def zone(request, pk):
     zone = Zone.objects.get(id=pk) # retrieve zone from db
-    gossips = zone.gossip_set.all().order_by('-created')
+    gossips = zone.gossip_set.all()
     participants = zone.participants.all().order_by('username')
 
     if request.method == 'POST':
@@ -152,6 +153,6 @@ def deleteGossip(request, pk):
 
     if request.method == 'POST':
         gossip.delete()
-        return redirect('home') #return back to homepage
+        return redirect('zone', pk=gossip.zone.id) #refresh page
 
     return render(request, 'base/delete.html', {'obj': gossip })

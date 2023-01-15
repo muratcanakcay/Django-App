@@ -1,0 +1,11 @@
+<h3>Recent Activity</h3>
+<hr>
+
+{% for gossip in gossips %}
+<div>
+    <small>@{{gossip.user}} {{gossip.created|timesince}}</small>
+    <small>replied to: "{{gossip.zone}}"</small>
+
+    <p>{{gossip}}</p>            
+</div>
+{% endfor %}
