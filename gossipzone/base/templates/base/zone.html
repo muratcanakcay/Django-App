@@ -20,6 +20,9 @@
 
             {% for gossip in gossips %}
             <div>
+                {% if request.user == gossip.user %}
+                <a href="{% url 'delete-gossip' gossip.id %}">Delete</a>
+                {% endif %}
                 <small>@{{gossip.user}}  gossipped {{gossip.created|timesince}} ago</small>
                 <p>{{gossip.body}}</p>
                 <hr>

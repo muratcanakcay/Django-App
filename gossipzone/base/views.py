@@ -88,6 +88,7 @@ def zone(request, pk):
             zone=zone,
             body=request.POST.get('body')
         )
+        zone.participants.add(request.user)
         return redirect('zone', pk=zone.id)
 
     context = {'zone': zone, 'gossips': gossips, 'participants': participants}
@@ -139,4 +140,18 @@ def deleteZone(request, pk):
         zone.delete()
         return redirect('home') #return back to homepage
 
-    return render(request, 'base/delete_zone.html', {'obj': zone })
+    return render(request, 'base/delete.html', {'obj': zone })
+
+# restricted to logged in users
+@login_required(login_url='login')
+def deleteGossip(request, pk):
+    gossip = Gossip.objects.get(id=pk)
+
+    if request.user != gossip.user:
+        return HttpResponse('You must be the creator of the gossip to delete it')
+
+    if request.method == 'POST':
+        gossip.delete()
+        return redirect('home') #return back to homepage
+
+    return render(request, 'base/delete.html', {'obj': gossip })
