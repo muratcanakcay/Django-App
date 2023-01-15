@@ -80,6 +80,7 @@ def home(request):
 def zone(request, pk):
     zone = Zone.objects.get(id=pk) # retrieve zone from db
     gossips = zone.gossip_set.all().order_by('-created')
+    participants = zone.participants.all().order_by('username')
 
     if request.method == 'POST':
         gossip = Gossip.objects.create(
@@ -89,7 +90,7 @@ def zone(request, pk):
         )
         return redirect('zone', pk=zone.id)
 
-    context = {'zone': zone, 'gossips': gossips}
+    context = {'zone': zone, 'gossips': gossips, 'participants': participants}
 
     return render(request, 'base/zone.html', context)
 

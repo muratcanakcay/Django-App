@@ -1,34 +1,55 @@
 {% extends 'main.html' %}
 
 {% block content %}
-<h1>{{zone.name}}</h1>
-<p>{{zone.description}}</p>
 
-<div class="comment-wrapper">
-    <h3>Gossips</h3>
-    <hr>
+<style>
+    .zone-container{
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+    }
+</style>
 
-    {% for gossip in gossips %}
+<div class="zone-container">
     <div>
-        <small>@{{gossip.user}}  gossipped {{gossip.created|timesince}} ago</small>
-        <p>{{gossip.body}}</p>
+        <h1>{{zone.name}}</h1>
+        <p>{{zone.description}}</p>
+
+        <div class="comment-wrapper">
+            <h3>Gossips</h3>
+            <hr>
+
+            {% for gossip in gossips %}
+            <div>
+                <small>@{{gossip.user}}  gossipped {{gossip.created|timesince}} ago</small>
+                <p>{{gossip.body}}</p>
+                <hr>
+
+            </div>
+            {% endfor %}
+
+            {% if request.user.is_authenticated %}
+            <div class="comment-form"> 
+                <form method="POST" action="">
+                    {% csrf_token %}
+
+                    <input type="text" name="body" placeholder="Gossip here..." />
+
+                </form>
+
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div>
+        <h3>Participants</h3>
         <hr>
-
+        {% for user in participants %}
+        <div>
+            <p>@{{user.username}}</p>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-
-    {% if request.user.is_authenticated %}
-    <div class="comment-form"> 
-        <form method="POST" action="">
-            {% csrf_token %}
-
-            <input type="text" name="body" placeholder="Gossip here..." />
-
-        </form>
-
-    </div>
-    {% endif %}
-
 </div>
 
 {% endblock  %}
