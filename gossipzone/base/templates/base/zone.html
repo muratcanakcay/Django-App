@@ -2,4 +2,21 @@
 
 {% block content %}
 <h1>{{zone.name}}</h1>
+<p>{{zone.description}}</p>
+
+<div class="comment-wrapper">
+    <h3>Gossips</h3>
+    <hr>
+
+    {% for gossip in gossips %}
+    <div>
+        <small>@{{gossip.user}}  gossipped {{gossip.created|timesince}} ago</small>
+        <p>{{gossip.body}}</p>
+        <hr>
+
+    </div>
+    {% endfor %}
+
+</div>
+
 {% endblock  %}

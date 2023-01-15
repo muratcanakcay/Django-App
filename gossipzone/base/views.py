@@ -79,7 +79,9 @@ def home(request):
 
 def zone(request, pk):
     zone = Zone.objects.get(id=pk) # retrieve zone from db
-    context = {'zone': zone}
+    gossips = zone.gossip_set.all().order_by('-created')
+
+    context = {'zone': zone, 'gossips': gossips}
 
     return render(request, 'base/zone.html', context)
 
