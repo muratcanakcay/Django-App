@@ -111,16 +111,22 @@ def userProfile(request, pk):
 @login_required(login_url='login')
 def createZone(request):
     form = ZoneForm()
+    topics = Topic.objects.all()
+    page = 'create'
 
     if request.method == 'POST':
-        form = ZoneForm(request.POST)
-        if form.is_valid():
-            zone = form.save(commit=False)
-            zone.host = request.user
-            zone.save()
-            return redirect('home') #return back to homepage
+        topic_name = request.POST.get('topic')
+        topic, created = Topic.objects.get_or_create(name=topic_name)
+        
+        Zone.objects.create(
+            host = request.user,
+            topic = topic,
+            name = request.POST.get('name'),
+            description = request.POST.get('description')
+        )       
+        return redirect('home') #return back to homepage
 
-    context = {'form': form}
+    context = {'form': form, 'topics': topics, 'page':page}
     return render(request, 'base/zone_form.html', context)
 
 # restricted to logged in users
@@ -128,18 +134,23 @@ def createZone(request):
 def updateZone(request, pk):
     zone = Zone.objects.get(id=pk)
     form = ZoneForm(instance=zone)
+    topics = Topic.objects.all()
 
     if request.user != zone.host:
         return HttpResponse('You must be the creator of the zone to edit it')
 
-
     if request.method == 'POST':
-        form = ZoneForm(request.POST, instance=zone)
-        if form.is_valid():
-            form.save()
-            return redirect('home') #return back to homepage
+        topic_name = request.POST.get('topic')
+        topic, created = Topic.objects.get_or_create(name=topic_name)
+        
+        zone.name = request.POST.get('name')
+        zone.topic = topic
+        zone.description = request.POST.get('description')     
+        zone.save()   
+       
+        return redirect('home') #return back to homepage
 
-    context = {'form': form}
+    context = {'form': form, 'topics': topics, 'zone': zone}
     return render(request, 'base/zone_form.html', context)
 
 # restricted to logged in users

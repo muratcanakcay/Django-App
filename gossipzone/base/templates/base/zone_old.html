@@ -1,0 +1,58 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<style>
+    .zone-container{
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+    }
+</style>
+
+<div class="zone-container">
+    <div>
+        <h1>{{zone.name}}</h1>
+        <p>{{zone.description}}</p>
+
+        <div class="comment-wrapper">
+            <h3>Gossips</h3>
+            <hr>
+
+            {% for gossip in gossips %}
+            <div>
+                {% if request.user == gossip.user %}
+                <a href="{% url 'delete-gossip' gossip.id %}">Delete</a>
+                {% endif %}
+                <small>@{{gossip.user}}  gossipped {{gossip.created|timesince}} ago</small>
+                <p>{{gossip.body}}</p>
+                <hr>
+
+            </div>
+            {% endfor %}
+
+            {% if request.user.is_authenticated %}
+            <div class="comment-form"> 
+                <form method="POST" action="">
+                    {% csrf_token %}
+
+                    <input type="text" name="body" placeholder="Gossip here..." />
+
+                </form>
+
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div>
+        <h3>Participants</h3>
+        <hr>
+        {% for user in participants %}
+        <div>
+            <p>@{{user.username}}</p>
+        </div>
+        {% endfor %}
+    </div>    
+</div>
+
+{% endblock  %}
