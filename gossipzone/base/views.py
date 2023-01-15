@@ -177,7 +177,7 @@ def deleteGossip(request, pk):
 
     if request.method == 'POST':
         gossip.delete()
-        return redirect('zone', pk=gossip.zone.id) #refresh page
+        return redirect('home') #return to homepage
 
     return render(request, 'base/delete.html', {'obj': gossip })
 
