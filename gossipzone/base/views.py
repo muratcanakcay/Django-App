@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from django.db.models import Q
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponse
 from .models import Zone, Topic
 from .forms import ZoneForm
 
@@ -57,6 +59,8 @@ def zone(request, pk):
 
     return render(request, 'base/zone.html', context)
 
+# restricted to logged in users
+@login_required(login_url='login')
 def createZone(request):
     form = ZoneForm()
 
@@ -69,9 +73,15 @@ def createZone(request):
     context = {'form': form}
     return render(request, 'base/zone_form.html', context)
 
+# restricted to logged in users
+@login_required(login_url='login')
 def updateZone(request, pk):
     zone = Zone.objects.get(id=pk)
     form = ZoneForm(instance=zone)
+
+    if request.user != zone.host:
+        return HttpResponse('You must be the creator of the zone to edit it')
+
 
     if request.method == 'POST':
         form = ZoneForm(request.POST, instance=zone)
@@ -82,8 +92,13 @@ def updateZone(request, pk):
     context = {'form': form}
     return render(request, 'base/zone_form.html', context)
 
+# restricted to logged in users
+@login_required(login_url='login')
 def deleteZone(request, pk):
     zone = Zone.objects.get(id=pk)
+
+    if request.user != zone.host:
+        return HttpResponse('You must be the creator of the zone to delete it')
 
     if request.method == 'POST':
         zone.delete()
