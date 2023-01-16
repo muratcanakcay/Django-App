@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap");
 
-:root {
-  --color-main: #71c6dd;
+/* :root {
+  --color-main: #71c6dd; 
   --color-main-light: #e1f6fb;
   --color-dark: #3f4156;
   --color-dark-medium: #51546e;
@@ -12,7 +12,21 @@
   --color-bg: #2d2d39;
   --color-success: #5dd693;
   --color-error: #fc4b0b;
-}
+} */
+
+:root {
+    --color-main: #98e9ff; /*Name handle create zone bg*/
+    --color-main-light: #e1f6fb; /* svg bg */ 
+    --color-dark: #222238; /*!! navbar, zone, topic box on main bg*/
+    --color-dark-medium: #51546e; /*search bar, topic box*/
+    --color-dark-light: #696d97; /*browse topics font, header box, topic box in zone */
+    --color-light: #e5e5e5;
+    --color-gray: #8b8b8b;
+    --color-light-gray: #b2bdbd;
+    --color-bg: #1e0e27;
+    --color-success: #3ac717;
+    --color-error: #da4712;
+  }
 
 /*========== base styles ==========*/
 
@@ -145,30 +159,9 @@ a {
   object-position: center;
 }
 
-.avatar::after {
-  content: "";
-  display: block;
-  position: absolute;
-  background-color: var(--color-gray);
-  z-index: 111;
-  border-radius: 50%;
-  border: 0.3rem solid var(--color-dark);
-}
-
-.avatar.active::after {
-  background-color: var(--color-success);
-}
-
 .avatar.avatar--small img {
   width: 2.8rem;
   height: 2.8rem;
-}
-
-.avatar.avatar--small:after {
-  width: 0.7rem;
-  height: 0.7rem;
-  bottom: 0px;
-  right: -6px;
 }
 
 .avatar.avatar--medium img {
@@ -177,25 +170,11 @@ a {
   border-radius: 50%;
 }
 
-.avatar.avatar--medium:after {
-  width: 0.7rem;
-  height: 0.7rem;
-  bottom: 0px;
-  right: -6px;
-}
-
 .avatar.avatar--large img {
   display: block;
   width: 8rem;
   height: 8rem;
   border-radius: 50%;
-}
-
-.avatar.avatar--large:after {
-  width: 1rem;
-  height: 1rem;
-  bottom: 2px;
-  right: 3.5px;
 }
 
 .scroll::-webkit-scrollbar {
