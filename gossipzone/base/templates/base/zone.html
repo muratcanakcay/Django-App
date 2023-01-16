@@ -73,7 +73,7 @@
                   <div class="avatar avatar--small">
                     <img src="https://randomuser.me/api/portraits/men/37.jpg" />
                   </div>
-                  <span>@{{zone.host.username}}</span>
+                  <span>@{{zone.host.handle}}</span>
                 </a>
               </div>
               <div class="zone__details">
@@ -95,7 +95,7 @@
                         <div class="avatar avatar--small">
                           <img src="https://randomuser.me/api/portraits/men/37.jpg" />
                         </div>
-                        <span>@{{gossip.user}}</span>
+                        <span>@{{gossip.user.handle}}</span>
                       </a>
                       <span class="gossip__date">{{gossip.created|timesince}} ago</span>
                     </div>
@@ -144,8 +144,8 @@
                 <img src="https://randomuser.me/api/portraits/men/37.jpg" />
               </div>
               <p>
-                {{ user.username }}
-                <span>@{{ user.username }}</span>
+                {{ user.name }}
+                <span>@{{ user.handle }}</span>
               </p>
             </a>
             {% endfor %}

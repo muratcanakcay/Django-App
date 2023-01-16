@@ -1,12 +1,11 @@
 from django.shortcuts import render, redirect
 from django.db.models import Q
-from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse
-from .models import Zone, Topic, Gossip
+from .models import Zone, Topic, Gossip, User
 from .forms import ZoneForm, UserForm
 
 def loginPage(request):   
