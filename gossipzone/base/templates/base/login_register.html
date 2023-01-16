@@ -44,35 +44,37 @@
     {% else %}
     <div class="container">
         <div class="layout__box">
+            
             <div class="layout__boxHeader">
-            <div class="layout__boxTitle">
-                <h3>Register</h3>
-            </div>
-            </div>
-            <div class="layout__body">
-            <h2 class="auth__tagline">Get Ready to Gossip!</h2>
-    
-            <form class="form" action="" method="POST">
-                {% csrf_token %}
-
-                {% for field in form %}
-                <div class="form__group form__group">
-                    <label for="zone_name">{{field.label}}</label>
-                    {{field}}
+                <div class="layout__boxTitle">
+                    <h3>Register</h3>
                 </div>
-                {% endfor %}
-               
-    
-                <button class="btn btn--main" type="submit">Register</button>
-            </form>
-    
-            <div class="auth__action">
-                <p>Already registered?</p>
-                <a href="{% url 'login' %}" class="btn btn--link">Login, then!</a>
             </div>
+            
+            <div class="layout__body">
+                <h2 class="auth__tagline">Get Ready to Gossip!</h2>
+        
+                <form class="form" action="" method="POST">
+                    {% csrf_token %}
+
+                    {% for field in form %}
+                    <div class="form__group">
+                        <label for="zone_name">{{field.label}}</label>
+                        {{field}}
+                    </div>
+                    {% endfor %}
+                
+        
+                    <button class="btn btn--main" type="submit">Register</button>
+                </form>
+    
+                <div class="auth__action">
+                    <p>Already registered?</p>
+                    <a href="{% url 'login' %}" class="btn btn--link">Login, then!</a>
+                </div>
             </div>
         </div>
-        </div>
+    </div>
     {% endif %}
 </main>
 
