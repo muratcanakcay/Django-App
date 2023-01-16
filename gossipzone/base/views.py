@@ -69,7 +69,7 @@ def home(request):
     ) 
     
     # retrieve topics from db
-    topics = Topic.objects.all() 
+    topics = Topic.objects.all()[0:4]
     gossips = Gossip.objects.filter(Q(zone__topic__name__icontains=q))
 
     zone_count = zones.count()
@@ -196,3 +196,12 @@ def updateUser(request):
 
     context ={'form': form}
     return render(request, 'base/update_user.html', context)
+
+def topicsPage(request):
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+
+    topics = Topic.objects.filter(name__icontains=q)
+    zone_count = Zone.objects.all().count()
+    
+    context = {'topics' : topics, 'zone_count': zone_count}
+    return render(request, 'base/topics.html', context)
