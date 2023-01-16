@@ -3,15 +3,14 @@
     <h2>Browse Topics</h2>
     </div>
     <ul class="topics__list">
-    <li>
-        <a href="{% url 'home' %}" class="active">All <span>{{zones.count}}</span></a>
-    </li>
-    {% for topic in topics %}
-    <li>
-        <a href="{% url 'home' %}?q={{topic.name}}">{{topic.name}} <span>{{topic.zone_set.all.count}}</span></a>
-    </li>
-    {% endfor %}
-   
+        <li>
+            <a href="{% url 'home' %}" class="active">All <span>{{zones.count}}</span></a>
+        </li>
+        {% for topic in topics %}
+        <li>
+            <a href="{% url 'home' %}?q={{topic.name}}">{{topic.name}} <span>{{topic.zone_set.all.count}}</span></a>
+        </li>
+        {% endfor %}   
     </ul>
     <a class="btn btn--link" href="{% url 'topics'%}">
     More

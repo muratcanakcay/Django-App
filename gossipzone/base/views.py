@@ -205,3 +205,9 @@ def topicsPage(request):
     
     context = {'topics' : topics, 'zone_count': zone_count}
     return render(request, 'base/topics.html', context)
+
+def activityPage(request):
+    gossips = Gossip.objects.all()
+
+    context={'gossips': gossips}
+    return render(request, 'base/activity.html', context)
