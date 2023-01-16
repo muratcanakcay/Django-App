@@ -9,7 +9,7 @@
         <div class="activities__boxHeader zoneListZone__header">
             <a href="{% url 'user-profile' gossip.user.id %}" class="zoneListZone__author">
             <div class="avatar avatar--small">
-                <img src="https://randomuser.me/api/portraits/women/11.jpg" />
+                <img src="{{ gossip.user.avatar.url }}" />
             </div>
             <p>
                 @{{gossip.user.handle}}

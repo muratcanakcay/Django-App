@@ -71,7 +71,7 @@
                 <p>Gossip started by</p>
                 <a href="{% url 'user-profile' zone.host.id %}" class="zone__author">
                   <div class="avatar avatar--small">
-                    <img src="https://randomuser.me/api/portraits/men/37.jpg" />
+                    <img src="{{ zone.host.avatar.url }}" />
                   </div>
                   <span>@{{zone.host.handle}}</span>
                 </a>
@@ -93,7 +93,7 @@
                     <div class="gossip__author">
                       <a href="#" class="gossip__authorInfo">
                         <div class="avatar avatar--small">
-                          <img src="https://randomuser.me/api/portraits/men/37.jpg" />
+                          <img src="{{ gossip.user.avatar.url }}" />
                         </div>
                         <span>@{{gossip.user.handle}}</span>
                       </a>
@@ -141,7 +141,7 @@
             {% for user in participants %}
             <a href="{% url 'user-profile' user.id%}" class="participant">
               <div class="avatar avatar--medium">
-                <img src="https://randomuser.me/api/portraits/men/37.jpg" />
+                <img src="{{ user.avatar.url }}" />
               </div>
               <p><span>@{{ user.handle }}</span></p>
             </a>

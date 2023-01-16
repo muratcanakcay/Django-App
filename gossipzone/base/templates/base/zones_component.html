@@ -3,7 +3,7 @@
     <div class="zoneListZone__header">
         <a href="{% url 'user-profile' zone.host.id %}" class="zoneListZone__author">
         <div class="avatar avatar--small">
-            <img src="https://randomuser.me/api/portraits/women/11.jpg" />
+            <img src="{{ zone.host.avatar.url }}" />
         </div>
         <span>@{{zone.host.username}}</span>
         </a>
